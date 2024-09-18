@@ -27,13 +27,13 @@ class IpDataResearch:
     # Metodo para obtener las región de una IP dada
     def getRegionFromIp(self):
         for ip in self.ipListByDomain:
-            responseRegion = requests.get(f"https://ipinfo.io/{ip}?token=")
+            responseRegion = requests.get(f"https://ipinfo.io/{ip}?token=f18cd1e491bd68")
             time.sleep(10)
             self.regionByIp[str(ip)] = responseRegion.json()['city']
 
     #Metodo para obtener correos desde el dominio
     def getEmailsFromDomain(self):
-        responseEmail = requests.get(f"https://api.hunter.io/v2/domain-search?domain={self.domain}&api_key=")
+        responseEmail = requests.get(f"https://api.hunter.io/v2/domain-search?domain={self.domain}&api_key=2cc9012e339a13ba2743a17cc7c60bf185684f51")
         time.sleep(10)
         responseEmailJson = responseEmail.json()
         if responseEmailJson['data']['emails'] != None:
@@ -51,15 +51,10 @@ class IpDataResearch:
         responseSave = collectionAccess.insert_one(dataFormatTemplate)
         print(responseSave.inserted_id)
 
-empresas = [
-]
-for dominio in empresas:
-    print(f"Dominio: {dominio}")
-    try:
-        prueba = IpDataResearch(dominio)
-        prueba.getIpFromDomain()
-        prueba.getRegionFromIp()
-        prueba.getEmailsFromDomain()
-        prueba.saveData()
-    except:
-        print("Ejecución fallida")
+
+
+prueba = IpDataResearch("paratebueno-cundinamarca.gov.co")
+prueba.getIpFromDomain()
+prueba.getRegionFromIp()
+prueba.getEmailsFromDomain()
+prueba.saveData()
