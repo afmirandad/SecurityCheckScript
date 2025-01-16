@@ -27,7 +27,7 @@ class IpDataResearch:
     # Metodo para obtener las región de una IP dada
     def getRegionFromIp(self):
         for ip in self.ipListByDomain:
-            responseRegion = requests.get(f"https://ipinfo.io/{ip}?token=f18cd1e491bd68")
+            responseRegion = requests.get(f"https://ipinfo.io/{ip}?token=")
             time.sleep(10)
             self.regionByIp[str(ip)] = responseRegion.json()['city']
 
